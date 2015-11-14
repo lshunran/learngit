@@ -1,0 +1,18 @@
+@font-face {
+    font-family: Hiragino-Sans-GB-W3;
+    /*src:url('../JS/Hiragino-Sans-GB-W3.otf');*/
+}
+
+.sidebar{
+    font-family: Hiragino-Sans-GB-W3;
+    width: 325px;
+    min-height: 810px;
+    margin-left: -0px;
+    background-color: #d7eeec;
+    border-radius: 2px;
+    position: absolute;
+}
+
+.sidebar.item a{
+    padding-left: 10px;
+}

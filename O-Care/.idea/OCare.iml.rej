@@ -1,0 +1,9 @@
+diff a/.idea/OCare.iml b/.idea/OCare.iml	(rejected hunks)
+@@ -87,6 +87,7 @@
+ +=======
+ +    <orderEntry type="library" name="Maven: org.springframework:spring-test:4.1.6.RELEASE" level="project" />
+ +>>>>>>> dfa3ba60b87c1cbcb3c661ad2f15470abfe7f906
+++=======
+      <orderEntry type="library" name="Maven: log4j:log4j:1.2.12" level="project" />
+ +>>>>>>> parent of 9de1f33... merge
+    </component>

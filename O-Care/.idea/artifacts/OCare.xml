@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="OCare">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="OCare.war">
+      <element id="artifact" artifact-name="OCare:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="JUnit4" module-name="OCare" />
+          <element id="library" level="project" name="android-logging-log4j-1.0.3" />
+          <element id="library" level="project" name="CCP_REST_SMS_SDK_JAVA_v2.6.3r" />
+          <element id="library" level="project" name="dom4j-1.6.1" />
+          <element id="library" level="project" name="gson-2.2.4" />
+          <element id="library" level="project" name="httpclient" />
+          <element id="library" level="project" name="log4j-1.2.17" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

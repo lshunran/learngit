@@ -1,0 +1,54 @@
+.main_content{
+    min-width: 1160px;
+    display: inline-block;
+    margin-left:320px;
+    padding: 0px;
+    position: relative;
+    background-color: #ffffff;
+    min-height: 800px;
+}
+
+
+.HR{
+    width:76%;
+    display: inline-block;
+    margin-left:320px;
+    padding: 0px;
+    position: relative;
+    background-color: #ffffff;
+    min-height: 800px;
+}
+
+.Entry{
+    width:70%;
+    display: inline-block;
+    margin-left:320px;
+
+    position: relative;
+    background-color: #ffffff;
+    min-height: 800px;
+    padding: 40px;
+}
+
+a{
+    color: #333333;
+    font-family: "Helvetica Neue", "Helvetica", Arial;
+    text-decoration: none;
+}
+
+.monitor{
+    width: 1140px;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    color: #000;
+    text-align: left;
+    border-radius: 5px;
+    border: 4px solid #26BED7;
+    margin: 10px;
+}
+
+.search{
+    margin:10px 250px;
+}

@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - OCare@202.120.163.167" uuid="a6436f74-d721-495a-8b3f-9042a9876306">
+    <database-info product="MySQL" version="5.1.73" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="OCare"/>
+    <table name="Admin" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="Company" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="legal_person_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="CompanyToLegalPerson" columns="legal_person_id" ref-table="LegalPerson" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="ContractToCompany" table="Contract" schema="" catalog="OCare" columns="company_id"/>
+      <exported-key name="ElderToComany" table="Elder" schema="" catalog="OCare" columns="company_id"/>
+      <exported-key name="EmployeeToCompany" table="Employee" schema="" catalog="OCare" columns="company_id"/>
+      <exported-key name="VolunteerToCompany" table="Volunteer" schema="" catalog="OCare" columns="company_id"/>
+      <index name="LegalPerson_idx" unique="false" columns="legal_person_id"/>
+    </table>
+    <table name="Contract" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="start_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="end_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ContractToCompany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="ContractToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ContractToCompany_idx" unique="false" columns="company_id"/>
+      <index name="ContractToElder_idx" unique="false" columns="elder_id"/>
+    </table>
+    <table name="Elder" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ElderToComany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="ContractToElder" table="Contract" schema="" catalog="OCare" columns="elder_id"/>
+      <exported-key name="ElderConditionToElder" table="ElderCondition" schema="" catalog="OCare" columns="elder_id"/>
+      <exported-key name="ElderMonitorToElder" table="ElderMonitor" schema="" catalog="OCare" columns="elder_id"/>
+      <exported-key name="VolunteerToElder" table="Volunteer" schema="" catalog="OCare" columns="elder_id"/>
+      <index name="Company_idx" unique="false" columns="company_id"/>
+    </table>
+    <table name="ElderCondition" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ElderConditionToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ElderConditionToElder_idx" unique="false" columns="elder_id"/>
+    </table>
+    <table name="ElderMonitor" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="relative_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="togetherImg" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ElderMonitorToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="ElderMonitorToRelative" columns="relative_id" ref-table="Relative" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ElderMonitorToElder_idx" unique="false" columns="elder_id"/>
+      <index name="ElderMonitorToRelative_idx" unique="false" columns="relative_id"/>
+    </table>
+    <table name="Employee" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="department" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="position" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="contract_start" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="contract_end" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="superior" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="workExperience" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="workDetail" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="EmployeeToCompany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fromEmployee" table="Task" schema="" catalog="OCare" columns="from"/>
+      <exported-key name="toEmployee" table="Task" schema="" catalog="OCare" columns="to"/>
+      <index name="Company_idx" unique="false" columns="company_id"/>
+    </table>
+    <table name="EmployeeCondition" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="employee_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="EmployeeConditionToEmployee_idx" unique="false" columns="employee_id"/>
+    </table>
+    <table name="LegalPerson" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="CompanyToLegalPerson" table="Company" schema="" catalog="OCare" columns="legal_person_id"/>
+    </table>
+    <table name="Relative" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="ElderMonitorToRelative" table="ElderMonitor" schema="" catalog="OCare" columns="relative_id"/>
+    </table>
+    <table name="Task" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="from" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="to" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="content" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fromEmployee" columns="from" ref-table="Employee" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="toEmployee" columns="to" ref-table="Employee" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fromEmployee_idx" unique="false" columns="from"/>
+      <index name="toEmployee_idx" unique="false" columns="to"/>
+    </table>
+    <table name="Volunteer" schema="" catalog="OCare" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="VolunteerToCompany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="VolunteerToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="OCare" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="VolunteerToCompany_idx" unique="false" columns="company_id"/>
+      <index name="VolunteerToElder_idx" unique="false" columns="elder_id"/>
+    </table>
+  </data-source>
+  <data-source name="openfire" uuid="dc2e0995-209e-4f0d-a947-522d69ac0176">
+    <database-info product="MySQL" version="5.1.73" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="openfire"/>
+    <table name="Admin" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="Company" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="legal_person_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="CompanyToLegalPerson" columns="legal_person_id" ref-table="LegalPerson" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="ContractToCompany" table="Contract" schema="" catalog="openfire" columns="company_id"/>
+      <exported-key name="ElderToComany" table="Elder" schema="" catalog="openfire" columns="company_id"/>
+      <exported-key name="EmployeeToCompany" table="Employee" schema="" catalog="openfire" columns="company_id"/>
+      <exported-key name="VolunteerToCompany" table="Volunteer" schema="" catalog="openfire" columns="company_id"/>
+      <index name="LegalPerson_idx" unique="false" columns="legal_person_id"/>
+    </table>
+    <table name="Contract" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="start_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="end_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ContractToCompany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="ContractToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ContractToCompany_idx" unique="false" columns="company_id"/>
+      <index name="ContractToElder_idx" unique="false" columns="elder_id"/>
+    </table>
+    <table name="Elder" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ElderToComany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="ContractToElder" table="Contract" schema="" catalog="openfire" columns="elder_id"/>
+      <exported-key name="ElderConditionToElder" table="ElderCondition" schema="" catalog="openfire" columns="elder_id"/>
+      <exported-key name="ElderMonitorToElder" table="ElderMonitor" schema="" catalog="openfire" columns="elder_id"/>
+      <exported-key name="VolunteerToElder" table="Volunteer" schema="" catalog="openfire" columns="elder_id"/>
+      <index name="Company_idx" unique="false" columns="company_id"/>
+    </table>
+    <table name="ElderCondition" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ElderConditionToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ElderConditionToElder_idx" unique="false" columns="elder_id"/>
+    </table>
+    <table name="ElderMonitor" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="relative_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="togetherImg" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="ElderMonitorToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="ElderMonitorToRelative" columns="relative_id" ref-table="Relative" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ElderMonitorToElder_idx" unique="false" columns="elder_id"/>
+      <index name="ElderMonitorToRelative_idx" unique="false" columns="relative_id"/>
+    </table>
+    <table name="Employee" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="department" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="position" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="contract_start" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="contract_end" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="superior" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="workExperience" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="workDetail" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastUpdateTime" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="EmployeeToCompany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fromEmployee" table="Task" schema="" catalog="openfire" columns="from"/>
+      <exported-key name="toEmployee" table="Task" schema="" catalog="openfire" columns="to"/>
+      <index name="Company_idx" unique="false" columns="company_id"/>
+    </table>
+    <table name="EmployeeCondition" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="employee_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="EmployeeConditionToEmployee_idx" unique="false" columns="employee_id"/>
+    </table>
+    <table name="LegalPerson" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="CompanyToLegalPerson" table="Company" schema="" catalog="openfire" columns="legal_person_id"/>
+    </table>
+    <table name="Relative" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="ElderMonitorToRelative" table="ElderMonitor" schema="" catalog="openfire" columns="relative_id"/>
+    </table>
+    <table name="Task" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="from" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="to" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="content" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fromEmployee" columns="from" ref-table="Employee" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="toEmployee" columns="to" ref-table="Employee" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fromEmployee_idx" unique="false" columns="from"/>
+      <index name="toEmployee_idx" unique="false" columns="to"/>
+    </table>
+    <table name="Volunteer" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="company_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="elder_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="VolunteerToCompany" columns="company_id" ref-table="Company" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="VolunteerToElder" columns="elder_id" ref-table="Elder" ref-schema="" ref-catalog="openfire" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="VolunteerToCompany_idx" unique="false" columns="company_id"/>
+      <index name="VolunteerToElder_idx" unique="false" columns="elder_id"/>
+    </table>
+    <table name="ofConParticipant" schema="" catalog="openfire" type="TABLE">
+      <column name="conversationID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="joinedDate" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="leftDate" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="bareJID" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="jidResource" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nickname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <index name="ofConParticipant_conv_idx" unique="false" columns="conversationID,bareJID,jidResource,joinedDate"/>
+      <index name="ofConParticipant_jid_idx" unique="false" columns="bareJID"/>
+    </table>
+    <table name="ofConversation" schema="" catalog="openfire" type="TABLE">
+      <column name="conversationID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="room" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isExternal" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="startDate" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="lastActivity" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="messageCount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="conversationID"/>
+      <index name="ofConversation_ext_idx" unique="false" columns="isExternal"/>
+      <index name="ofConversation_last_idx" unique="false" columns="lastActivity"/>
+      <index name="ofConversation_start_idx" unique="false" columns="startDate"/>
+    </table>
+    <table name="ofExtComponentConf" schema="" catalog="openfire" type="TABLE">
+      <column name="subdomain" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="wildcard" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="secret" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="permission" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="subdomain"/>
+    </table>
+    <table name="ofGroup" schema="" catalog="openfire" type="TABLE">
+      <column name="groupName" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="groupName"/>
+    </table>
+    <table name="ofGroupProp" schema="" catalog="openfire" type="TABLE">
+      <column name="groupName" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="propValue" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="groupName,name"/>
+    </table>
+    <table name="ofGroupUser" schema="" catalog="openfire" type="TABLE">
+      <column name="groupName" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="administrator" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="groupName,username,administrator"/>
+    </table>
+    <table name="ofID" schema="" catalog="openfire" type="TABLE">
+      <column name="idType" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="idType"/>
+    </table>
+    <table name="ofMessageArchive" schema="" catalog="openfire" type="TABLE">
+      <column name="conversationID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="fromJID" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fromJIDResource" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="toJID" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="toJIDResource" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sentDate" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <index name="ofMessageArchive_con_idx" unique="false" columns="conversationID"/>
+    </table>
+    <table name="ofMucAffiliation" schema="" catalog="openfire" type="TABLE">
+      <column name="roomID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="jid" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="affiliation" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="relation" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="roomID,jid"/>
+    </table>
+    <table name="ofMucConversationLog" schema="" catalog="openfire" type="TABLE">
+      <column name="roomID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="sender" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="nickname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="logTime" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="subject" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <index name="ofMucConversationLog_time_idx" unique="false" columns="logTime"/>
+    </table>
+    <table name="ofMucMember" schema="" catalog="openfire" type="TABLE">
+      <column name="roomID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="jid" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="nickname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="firstName" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="url" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="faqentry" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="relation" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="roomID,jid"/>
+    </table>
+    <table name="ofMucRoom" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="roomID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="creationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="modificationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="naturalName" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lockedDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="emptyDate" sqlType="CHAR" precision="15" scale="0" nullable="true" jdbcType="1"/>
+      <column name="canChangeSubject" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="maxUsers" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="publicRoom" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="moderated" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="membersOnly" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="canInvite" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="roomPassword" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="canDiscoverJID" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="logEnabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="subject" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rolesToBroadcast" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="useReservedNick" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="canChangeNick" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="canRegister" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="isOCareRoom" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="serviceID,name"/>
+      <index name="ofMucRoom_roomid_idx" unique="false" columns="roomID"/>
+      <index name="ofMucRoom_serviceid_idx" unique="false" columns="serviceID"/>
+    </table>
+    <table name="ofMucRoomProp" schema="" catalog="openfire" type="TABLE">
+      <column name="roomID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="propValue" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="roomID,name"/>
+    </table>
+    <table name="ofMucService" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="subdomain" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isHidden" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="subdomain"/>
+      <index name="ofMucService_serviceid_idx" unique="false" columns="serviceID"/>
+    </table>
+    <table name="ofMucServiceProp" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="propValue" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="serviceID,name"/>
+    </table>
+    <table name="ofOffline" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="messageID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="creationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="messageSize" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="stanza" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="username,messageID"/>
+    </table>
+    <table name="ofPresence" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="offlinePresence" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="offlineDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="username"/>
+    </table>
+    <table name="ofPrivacyList" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="isDefault" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="list" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="username,name"/>
+      <index name="ofPrivacyList_default_idx" unique="false" columns="username,isDefault"/>
+    </table>
+    <table name="ofPrivate" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="namespace" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="privateData" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="username,name,namespace"/>
+    </table>
+    <table name="ofProperty" schema="" catalog="openfire" type="TABLE">
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="propValue" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="name"/>
+    </table>
+    <table name="ofPubsubAffiliation" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nodeID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="jid" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="affiliation" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="serviceID,nodeID,jid"/>
+    </table>
+    <table name="ofPubsubDefaultConf" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="leaf" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="deliverPayloads" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="maxPayloadSize" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="persistItems" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="maxItems" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="notifyConfigChanges" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="notifyDelete" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="notifyRetract" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="presenceBased" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="sendItemSubscribe" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="publisherModel" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="subscriptionEnabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="accessModel" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="language" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="replyPolicy" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="associationPolicy" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="maxLeafNodes" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="serviceID,leaf"/>
+    </table>
+    <table name="ofPubsubItem" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nodeID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="jid" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="creationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="payload" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="serviceID,nodeID,id"/>
+    </table>
+    <table name="ofPubsubNode" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nodeID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="leaf" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="creationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="modificationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="parent" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deliverPayloads" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="maxPayloadSize" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="persistItems" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="maxItems" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="notifyConfigChanges" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="notifyDelete" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="notifyRetract" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="presenceBased" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="sendItemSubscribe" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="publisherModel" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="subscriptionEnabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="configSubscription" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="accessModel" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="payloadType" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bodyXSLT" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dataformXSLT" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="creator" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="language" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="replyPolicy" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="associationPolicy" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="maxLeafNodes" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="serviceID,nodeID"/>
+    </table>
+    <table name="ofPubsubNodeGroups" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nodeID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rosterGroup" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <index name="ofPubsubNodeGroups_idx" unique="false" columns="serviceID,nodeID"/>
+    </table>
+    <table name="ofPubsubNodeJIDs" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nodeID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="jid" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="associationType" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="serviceID,nodeID,jid"/>
+    </table>
+    <table name="ofPubsubSubscription" schema="" catalog="openfire" type="TABLE">
+      <column name="serviceID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nodeID" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="jid" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="owner" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="state" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deliver" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="digest" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="digest_frequency" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="expire" sqlType="CHAR" precision="15" scale="0" nullable="true" jdbcType="1"/>
+      <column name="includeBody" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="showValues" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="subscriptionType" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="subscriptionDepth" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="keyword" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="serviceID,nodeID,id"/>
+    </table>
+    <table name="ofRRDs" schema="" catalog="openfire" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="updatedDate" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="bytes" sqlType="MEDIUMBLOB" precision="16777215" scale="0" nullable="true" jdbcType="-4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="ofRemoteServerConf" schema="" catalog="openfire" type="TABLE">
+      <column name="xmppDomain" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="remotePort" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="permission" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="xmppDomain"/>
+    </table>
+    <table name="ofRoster" schema="" catalog="openfire" type="TABLE">
+      <column name="rosterID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="jid" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="sub" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="ask" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="recv" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="nick" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="rosterID"/>
+      <index name="ofRoster_jid_idx" unique="false" columns="jid"/>
+      <index name="ofRoster_unameid_idx" unique="false" columns="username"/>
+    </table>
+    <table name="ofRosterGroups" schema="" catalog="openfire" type="TABLE">
+      <column name="rosterID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="rank" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="groupName" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="rosterID,rank"/>
+      <index name="ofRosterGroup_rosterid_idx" unique="false" columns="rosterID"/>
+    </table>
+    <table name="ofSASLAuthorized" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="principal" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="username,principal"/>
+    </table>
+    <table name="ofSecurityAuditLog" schema="" catalog="openfire" type="TABLE">
+      <column name="msgID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="entryStamp" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="summary" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="node" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="details" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="msgID"/>
+      <index name="ofSecurityAuditLog_tstamp_idx" unique="false" columns="entryStamp"/>
+      <index name="ofSecurityAuditLog_uname_idx" unique="false" columns="username"/>
+    </table>
+    <table name="ofUser" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="plainPassword" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encryptedPassword" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="creationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <column name="modificationDate" sqlType="CHAR" precision="15" scale="0" nullable="false" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="username"/>
+      <index name="ofUser_cDate_idx" unique="false" columns="creationDate"/>
+    </table>
+    <table name="ofUserFlag" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="startTime" sqlType="CHAR" precision="15" scale="0" nullable="true" jdbcType="1"/>
+      <column name="endTime" sqlType="CHAR" precision="15" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="username,name"/>
+      <index name="ofUserFlag_eTime_idx" unique="false" columns="endTime"/>
+      <index name="ofUserFlag_sTime_idx" unique="false" columns="startTime"/>
+    </table>
+    <table name="ofUserProp" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="propValue" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="username,name"/>
+    </table>
+    <table name="ofVCard" schema="" catalog="openfire" type="TABLE">
+      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="vcard" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="username"/>
+    </table>
+    <table name="ofVersion" schema="" catalog="openfire" type="TABLE">
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="name"/>
+    </table>
+  </data-source>
+</component>
